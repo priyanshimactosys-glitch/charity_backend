@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
 
     email: {
@@ -12,6 +13,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
     },
 
     password: {
@@ -25,12 +27,18 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
+    phone: {
+      type: String,
+    },
+
     isActive: {
       type: Boolean,
       default: true,
     },
 
-    lastLogin: Date,
+    lastLogin: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

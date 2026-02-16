@@ -11,6 +11,8 @@ const pageSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+      trim: true,
     },
 
     template: {
@@ -25,22 +27,37 @@ const pageSchema = new mongoose.Schema(
       default: "draft",
     },
 
-    blocks: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Block",
-      },
-    ],
+    blocks: [blockSchema],
 
-    metaTitle: String,
-    metaDescription: String,
+    seo: {
+      metaTitle: String,
+      metaDescription: String,
+      metaKeywords: [String],
+    },
+
+    menuId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Menu",
+      default: null,
+    },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
+
 
 module.exports = mongoose.model("Page", pageSchema);
